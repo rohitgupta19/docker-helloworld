@@ -29,21 +29,7 @@ jobs:
 
       - name: Deploy to Azure Container Apps
         run: |
-          # Stop the container app
-          az containerapp stop \
-            --name ${{ secrets.CONTAINER_APP_NAME }} \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
-
-          # Wait for a few seconds (optional but recommended)
-          sleep 10
-
-          # Update the container app with the new image
-          az containerapp update \
-            --name ${{ secrets.CONTAINER_APP_NAME }} \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --image ${{ secrets.ACR_NAME }}.azurecr.io/helloworld:latest
-
-          # Start the container app again
-          az containerapp start \
+          # Trigger a new revision of the container app to update the image
+          az containerapp revision restart \
             --name ${{ secrets.CONTAINER_APP_NAME }} \
             --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
