@@ -24,7 +24,7 @@ jobs:
 
       - name: Build and Push Docker Image
         run: |
-          docker build --build-arg CLOUD_PROVIDER=AWS -t ${{ secrets.ACR_NAME }}.azurecr.io/helloworld:latest .
+          docker build -t ${{ secrets.ACR_NAME }}.azurecr.io/helloworld:latest .
           docker push ${{ secrets.ACR_NAME }}.azurecr.io/helloworld:latest
 
 
