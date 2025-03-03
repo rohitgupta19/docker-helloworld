@@ -3,6 +3,12 @@
 # Based on Ubuntu
 ############################################################
 
+ARG CLOUD_PROVIDER = AWS
+
+ENV CLOUD_PROVIDER = $CLOUD_PROVIDER
+
+# Echo the environment variable
+RUN echo "CLOUD_PROVIDER is set to: $CLOUD_PROVIDER"
 
 # Set the base image to Ubuntu
 FROM ubuntu
@@ -37,14 +43,14 @@ ADD index.html /www/data/
 # Append "daemon off;" to the beginning of the configuration
 RUN echo "daemon off;" >> /etc/nginx/nginx.conf
 
-# Create a runner script for the entrypoint
-COPY runner.sh /runner.sh
-RUN chmod +x /runner.sh
+# Create a entrypoint-selector script for the entrypoint
+COPY entrypoint-selector.sh /entrypoint-selector.sh
+RUN chmod +x /entrypoint-selector.sh
 
 # Expose ports
 EXPOSE 80
 
-ENTRYPOINT ["/runner.sh"]
+ENTRYPOINT ["/entrypoint-selector.sh"]
 
 # Set the default command to execute
 # when creating a new container
