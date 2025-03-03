@@ -3,9 +3,8 @@
 # Based on Ubuntu
 ############################################################
 
-ARG CLOUD_PROVIDER = AWS
-
-ENV CLOUD_PROVIDER = $CLOUD_PROVIDER
+ARG CLOUD_PROVIDER=AWS
+ENV CLOUD_PROVIDER=$CLOUD_PROVIDER
 
 # Echo the environment variable
 RUN echo "CLOUD_PROVIDER is set to: $CLOUD_PROVIDER"
